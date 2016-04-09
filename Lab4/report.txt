@@ -1,0 +1,25 @@
+The students in the class : 
+Name : Joseph Lee
+Social Security Number 444-44-4444
+Class : junior
+Midterm grade : 67.0
+Final grade : 78.2
+Homework1 grade : 99.4
+Homework2 grade : 55.4
+Homework3 grade : 76.0
+Name : Mary Cornello
+Social Security Number 435-67-9877
+Class : senior
+Midterm grade : 89.5
+Final grade : 88.0
+Homework1 grade : 56.5
+Homework2 grade : 89.2
+Homework3 grade : 78.0
+Name : Frank Jones
+Social Security Number 433-56-5555
+Class : 2
+Midterm grade : 56.0
+Final grade : 77.0
+Homework1 grade : 90.0
+Homework2 grade : 90.0
+Homework3 grade : 90.0

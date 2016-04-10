@@ -30,25 +30,34 @@ public class Flight {
      * @param maxCapacity The flight capacity
      */
     public Flight(String id, String origin, String destination, LocalDateTime departure, LocalDateTime arrival, int maxCapacity) {
-        this.id = id;
+        
+    	this.id = id;
         this.origin = origin;
         this.destination = destination;
         this.departure = departure;
         this.arrival = arrival;
         this.maxCapacity = maxCapacity;
 
-        int row = 1, seat = 10;
+        String letter;
+        
+        int row = 1, seat = 0;
         while (curCapacity < maxCapacity) {
-            Seat s = new Seat(row, Integer.toHexString(seat).toUpperCase());
+        	
+        	letter = String.valueOf(seat + 'A');
+        	
+            Seat s = new Seat(row, letter.toUpperCase());
             seats.put(s, null);
-
-            if (seat == 15) {
-                seat = 9;
-                row++;
-            }
-
+            
             seat++;
             curCapacity++;
+            
+            //Check if we hit our bound.
+            //Rows are 6 seats wide.
+            if (seat >= 5) {
+                seat = 0;
+                row++;
+            }
+            
         }
         curCapacity = 0;
     }

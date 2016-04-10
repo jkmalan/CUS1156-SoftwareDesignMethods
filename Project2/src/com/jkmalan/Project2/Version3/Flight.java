@@ -348,13 +348,22 @@ public class Flight {
 
     @Override
     public boolean equals(Object obj) {
-        Flight f = (Flight) obj;
+        
+    	//Checks if it's a flight
+    	if(!(obj instanceof Flight))
+        	return false;
+    	
+    	//For convenience
+    	Flight f = (Flight) obj;
 
-        if (obj != null && f.getId().equals(id) && f.getOrigin().equals(origin) && f.getDestination().equals(destination)
-                && f.getDeparture().equals(departure) && f.getArrival().equals(arrival) && f.getMaxCapacity() == maxCapacity) {
-            return true;
-        } else {
-            return false;
-        }
+    	//Return if they're the same
+        return f.getId().equals(id) && 
+        	   f.getOrigin().equals(origin) && 
+        	   f.getDestination().equals(destination) && 
+        	   f.getDeparture().equals(departure) && 
+        	   f.getArrival().equals(arrival) && 
+        	   f.getMaxCapacity() == maxCapacity;
+            
+        
     }
 }

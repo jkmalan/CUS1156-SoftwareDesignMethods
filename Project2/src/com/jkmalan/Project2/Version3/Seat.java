@@ -60,12 +60,19 @@ public class Seat implements Comparable {
 
     @Override
     public boolean equals(Object obj) {
-        Seat s = (Seat) obj;
+        
+    	//Check if it's a passenger. Returns false if
+    	//obj is null, too.
+    	if(!(obj instanceof Seat))
+    		return false;
+    	
+    	//For convenience
+    	Seat s = (Seat) obj;
 
-        if (s != null && s.getNumber() == number && s.getLetter().equals(letter)) {
-            return true;
-        } else {
-            return false;
-        }
+    	//Return if the two objects are the same
+        return s.getNumber() == number && 
+        	   s.getLetter().equals(letter);
+     
+        
     }
 }

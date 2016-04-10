@@ -80,12 +80,19 @@ public class Passenger {
 
     @Override
     public boolean equals(Object obj) {
-        Passenger p = (Passenger) obj;
 
-        if (obj != null && p.getFirstName().equals(firstName) && p.getLastName().equals(lastName) && p.getNationality().equals(nationality)) {
-            return true;
-        } else {
-            return false;
-        }
+    	//Check if it's a passenger. Returns false if
+    	//obj is null, too.
+        if(!(obj instanceof Passenger))
+        	return false;
+        
+        //For convenience
+        Passenger p = (Passenger) obj;
+        
+        //Return if the two objects are the same
+        return 	p.getFirstName().equals(firstName) && 
+        		p.getLastName().equals(lastName) && 
+        		p.getNationality().equals(nationality);
+            
     }
 }

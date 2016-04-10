@@ -4,8 +4,9 @@ package com.jkmalan.Project2.Version3;
  * Represents a Seat on a Flight
  *
  * @author jkmalan (aka John Malandrakis)
+ * @author Kuba Gasiorowski
  */
-public class Seat implements Comparable {
+public class Seat implements Comparable<Seat> {
 
     private int number;
     private String letter;
@@ -17,8 +18,8 @@ public class Seat implements Comparable {
      * @param letter The seat letter
      */
     public Seat(int number, String letter) {
-        this.number = number;
-        this.letter = letter;
+        setNumber(number);
+        setLetter(letter);
     }
 
     /**
@@ -31,6 +32,17 @@ public class Seat implements Comparable {
     }
 
     /**
+     * Sets the set's number to the new value
+     * 
+     * @param number
+     * 		the new seat number
+     */
+    public void setNumber(int number)
+    {
+    	this.number = number;
+    }
+    
+    /**
      * Returns the letter of the id
      *
      * @return The letter
@@ -39,23 +51,27 @@ public class Seat implements Comparable {
         return letter;
     }
 
+    /**
+     * Sets the seat's letter to the new value
+     * 
+     * @param letter
+     * 		the new value of letter
+     */
+    public void setLetter(String letter)
+    {
+    	this.letter = letter;
+    }
+    
     @Override
-    public int compareTo(Object o) {
-        Seat s = (Seat) o;
-
-        if (s.getNumber() < number) {
+    public int compareTo(Seat s) {
+    		
+        if (s.getNumber() < number) 
             return 1;
-        } else if (s.getNumber() > number) {
+        else if (s.getNumber() > number)
             return -1;
-        } else {
-            if (s.getLetter().charAt(0) < letter.charAt(0)) {
-                return 1;
-            } else if (s.getLetter().charAt(0) > letter.charAt(0)) {
-                return -1;
-            } else {
-                return 0;
-            }
-        }
+        else
+            return s.getLetter().compareToIgnoreCase(this.getLetter());
+        
     }
 
     @Override

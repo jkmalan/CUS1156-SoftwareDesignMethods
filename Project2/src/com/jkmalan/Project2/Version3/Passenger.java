@@ -19,9 +19,9 @@ public class Passenger {
      * @param nationality The passenger's nationality
      */
     public Passenger(String firstName, String lastName, String nationality) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.nationality = nationality;
+        setFirstName(firstName);
+        setLastName(lastName);
+        setNationality(nationality);
     }
 
     /**

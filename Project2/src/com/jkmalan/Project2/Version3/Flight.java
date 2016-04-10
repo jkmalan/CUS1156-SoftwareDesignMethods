@@ -31,12 +31,12 @@ public class Flight {
      */
     public Flight(String id, String origin, String destination, LocalDateTime departure, LocalDateTime arrival, int maxCapacity) {
         
-    	this.id = id;
-        this.origin = origin;
-        this.destination = destination;
-        this.departure = departure;
-        this.arrival = arrival;
-        this.maxCapacity = maxCapacity;
+    	setId(id);
+        setOrigin(origin);
+        setDestination(destination);
+        setDeparture(departure);
+        setArrival(arrival);
+        setMaxCapacity(maxCapacity);
 
         String letter;
         
@@ -312,6 +312,17 @@ public class Flight {
         return maxCapacity;
     }
 
+    /**
+     * Sets a value for max capacity
+     * 
+     * @param i
+     * 		the new value for max capacity
+     */
+    private void setMaxCapacity(int i)
+    {
+    	maxCapacity = i;
+    }
+    
     /**
      * Returns the Flight capacity
      *

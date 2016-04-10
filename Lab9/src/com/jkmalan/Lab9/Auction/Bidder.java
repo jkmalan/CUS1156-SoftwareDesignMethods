@@ -7,48 +7,73 @@ package com.jkmalan.Lab9.Auction;
  * auction so that they are notified when the state of the
  * auction has changed. (i.e. someone has put out a higher bid)
  */
-
 import java.util.Observer;
 import java.util.Random;
 import java.util.Observable;
 
 public class Bidder implements Observer {
-	private BidBus bidBus;
-	private Bid latestBid;
-	private String name;
-	private double limit;
-	Boolean limitHit = false;
-	private Random rand = new Random();
 
+    private BidBus bidBus;
+    private Bid latestBid;
+    private String name;
+    private double limit; // Not specified in the instructions, what limit do I provide?
 
+    Boolean limitHit = false; // Unsure why this isn't private and why it's not primitive
+    private Random rand = new Random();
 
-	public void display(Bid latestBid) {
-		System.out.println(name + " observed the latest bid :" + latestBid);
-	}
+    public Bidder(String name, BidBus bidBus) {
+        setName(name);
+        setBus(bidBus);
 
+        bidBus.addObserver(this);
+    }
 
-	public Bid getLatestBid() {
-		return latestBid;
-	}
+    public void display(Bid latestBid) {
+        System.out.println(name + " observed the latest bid: " + latestBid);
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void update(Observable o, Object arg) {
+        setLatestBid(bidBus.getBid());
+        display(latestBid);
+        if (latestBid.getAmount() == limit && !limitHit) {
+            limitHit = true;
+            System.out.println(name + " has reached their bidding limit!");
+        }
+    }
 
-	public boolean makeBid()
-	{
-     Boolean madeBid = false;
-	 if (!limitHit)
-		{
-	    	if (!latestBid.getBidderName().equals(name))
-	    	{
-	 		{
-     	    	double amount = rand.nextDouble() * 10.0;
-	        	bidBus.submitBid(new Bid(name, latestBid.getAmount() + amount));
-	        	madeBid=true;
-	    		}
+    public void setLatestBid(Bid latestBid) {
+        this.latestBid = latestBid;
+    }
 
-		}
-	 return madeBid;
-	}
+    public Bid getLatestBid() {
+        return latestBid;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setBus(BidBus bidBus) {
+        this.bidBus = bidBus;
+    }
+
+    public BidBus getBus() {
+        return bidBus;
+    }
+
+    public boolean makeBid() {
+        Boolean madeBid = false; // Unsure why this is not primitive
+        if (!limitHit) {
+            if (!latestBid.getBidderName().equals(name)) {
+                double amount = rand.nextDouble() * 10.0;
+                bidBus.submitBid(new Bid(name, latestBid.getAmount() + amount));
+                madeBid = true;
+            }
+        }
+        return madeBid;
+    }
 }

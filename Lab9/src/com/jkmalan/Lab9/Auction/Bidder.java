@@ -16,7 +16,7 @@ public class Bidder implements Observer {
     private BidBus bidBus;
     private Bid latestBid;
     private String name;
-    private double limit; // Not specified in the instructions, what limit do I provide?
+    private double limit;
 
     Boolean limitHit = false; // Unsure why this isn't private and why it's not primitive
     private Random rand = new Random();
@@ -24,6 +24,7 @@ public class Bidder implements Observer {
     public Bidder(String name, BidBus bidBus) {
         setName(name);
         setBus(bidBus);
+        setLimit(rand.nextDouble() * 1000.0); // Chooses a random limit per new Bidder()
 
         bidBus.addObserver(this);
     }
@@ -35,7 +36,7 @@ public class Bidder implements Observer {
     public void update(Observable o, Object arg) {
         setLatestBid(bidBus.getBid());
         display(latestBid);
-        if (latestBid.getAmount() == limit && !limitHit) {
+        if (latestBid.getAmount() >= limit && !limitHit) {
             limitHit = true;
             System.out.println(name + " has reached their bidding limit!");
         }
@@ -57,6 +58,14 @@ public class Bidder implements Observer {
         return name;
     }
 
+    public void setLimit(double limit) {
+        this.limit = limit;
+    }
+
+    public double getLimit() {
+        return limit;
+    }
+
     public void setBus(BidBus bidBus) {
         this.bidBus = bidBus;
     }
@@ -66,7 +75,7 @@ public class Bidder implements Observer {
     }
 
     public boolean makeBid() {
-        Boolean madeBid = false; // Unsure why this is not primitive
+        Boolean madeBid = false; // Unsure why this is also not primitive
         if (!limitHit) {
             if (!latestBid.getBidderName().equals(name)) {
                 double amount = rand.nextDouble() * 10.0;

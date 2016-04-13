@@ -7,9 +7,11 @@ package com.jkmalan.Project3;
  */
 public class LoggerFactory {
 
-    public SimpleLogger getLogger(String loggerType) {
+    public static SimpleLogger getLogger(String loggerType) {
         SimpleLogger logger;
-        if (loggerType.equals("File")) {
+        if (loggerType.equals("Console")) {
+            logger = ConsoleLogger.getInstance();
+        } else if (loggerType.equals("File")) {
             logger = FileLogger.getInstance();
         } else {
             logger = null;

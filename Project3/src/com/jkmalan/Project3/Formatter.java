@@ -7,6 +7,6 @@ package com.jkmalan.Project3;
  */
 public interface Formatter {
 
-    public String format(LoggerLevel level, String msg);
+    public String format(LoggerLevel level, String component, String msg);
 
 }

@@ -1,5 +1,9 @@
 package com.jkmalan.Project3;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.time.LocalDateTime;
+
 /**
  *
  *
@@ -21,13 +25,21 @@ public class ConsoleLogger extends SimpleLogger {
     }
 
     @Override
-    public void log(LoggerLevel level, String component, String msg) throws LoggerException {
-        System.out.println(formatter.format(level, component, msg));
+    public void log(LogLevel level, String component, String msg) throws LoggerException {
+        if (getLevel().permitsLogging(level)) {
+            String logMsg = formatter.format(new LogMessage(level, LocalDateTime.now(), component, msg));
+            System.out.println(logMsg);
+        }
     }
 
     @Override
-    public void log(LoggerLevel level, String component, Throwable ex) throws LoggerException {
-        System.out.println(formatter.format(level, component, ex.getMessage()));
+    public void log(LogLevel level, String component, Throwable ex) throws LoggerException {
+        if (getLevel().permitsLogging(level)) {
+            StringWriter sw = new StringWriter();
+            ex.printStackTrace(new PrintWriter(sw));
+            String logMsg = formatter.format(new LogMessage(level, LocalDateTime.now(), component, sw.toString().trim()));
+            System.out.println(logMsg);
+        }
     }
 
 }

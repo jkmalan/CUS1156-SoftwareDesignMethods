@@ -10,14 +10,14 @@ import java.time.LocalDateTime;
 public class PlainFormatter implements Formatter {
 
     @Override
-    public String format(LoggerLevel level, String component, String msg) {
+    public String format(LogMessage logMessage) {
         String str = "[";
 
         // Appends the time, level, component, and message
-        str += level.toString() + "][";
-        str += LocalDateTime.now().toString() + "]";
-        str += component + ": ";
-        str += msg;
+        str += logMessage.getLevel().toString() + "][";
+        str += logMessage.getTime().toString() + "]";
+        str += logMessage.getComponent() + ": ";
+        str += logMessage.getMessage();
 
         return str;
     }

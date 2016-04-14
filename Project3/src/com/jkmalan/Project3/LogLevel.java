@@ -5,7 +5,7 @@ package com.jkmalan.Project3;
  *
  * @author jkmalan (aka John Malandrakis)
  */
-public enum LoggerLevel {
+public enum LogLevel {
 
     DEBUG(0),
     INFO(1),
@@ -15,7 +15,7 @@ public enum LoggerLevel {
 
     private int value;
 
-    private LoggerLevel(int value) {
+    private LogLevel(int value) {
         this.value = value;
     }
 
@@ -23,7 +23,7 @@ public enum LoggerLevel {
         return value;
     }
 
-    public boolean permitsLogging(LoggerLevel level) {
+    public boolean permitsLogging(LogLevel level) {
         boolean result = false;
         if (value <= level.getValue()) {
             result = true;

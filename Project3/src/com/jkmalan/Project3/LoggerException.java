@@ -7,7 +7,7 @@ import java.io.IOException;
  *
  * @author jkmalan (aka John Malandrakis)
  */
-public class LoggerException extends Exception {
+public class LoggerException extends IOException {
 
     public LoggerException() {
 

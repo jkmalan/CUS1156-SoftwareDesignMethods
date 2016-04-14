@@ -1,8 +1,7 @@
 package com.jkmalan.Project3;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.time.LocalDateTime;
 
 /**
  *
@@ -12,6 +11,8 @@ import java.io.IOException;
 public class FileLogger extends SimpleLogger {
 
     private static FileLogger INSTANCE;
+
+    private File file = null;
 
     private FileLogger() {
 
@@ -25,26 +26,40 @@ public class FileLogger extends SimpleLogger {
     }
 
     @Override
-    public void log(LoggerLevel level, String component, String msg) throws LoggerException {
-        File file = new File("log.txt");
-        try {
-            FileWriter writer = new FileWriter(file, true);
-            writer.write(formatter.format(level, component, msg) + "\n");
-            writer.close();
-        } catch (IOException e) {
-            throw new LoggerException();
+    public void log(LogLevel level, String component, String msg) throws LoggerException {
+        if (getLevel().permitsLogging(level)) {
+            String logMsg = formatter.format(new LogMessage(level, LocalDateTime.now(), component, msg));
+            if (file == null) {
+                file = new File("log.txt");
+            }
+
+            try {
+                FileWriter writer = new FileWriter(file, true);
+                writer.write(logMsg + "\n");
+                writer.close();
+            } catch (IOException e) {
+                throw new LoggerException("Unable to write to log", e);
+            }
         }
     }
 
     @Override
-    public void log(LoggerLevel level, String component, Throwable ex) throws LoggerException {
-        File file = new File("log.txt");
-        try {
-            FileWriter writer = new FileWriter(file, true);
-            writer.write(formatter.format(level, component, ex.getMessage()) + "\n");
-            writer.close();
-        } catch (IOException e) {
-            throw new LoggerException();
+    public void log(LogLevel level, String component, Throwable ex) throws LoggerException {
+        if (getLevel().permitsLogging(level)) {
+            StringWriter sw = new StringWriter();
+            ex.printStackTrace(new PrintWriter(sw));
+            String logMsg = formatter.format(new LogMessage(level, LocalDateTime.now(), component, sw.toString().trim()));
+            if (file == null) {
+                file = new File("log.txt");
+            }
+
+            try {
+                FileWriter writer = new FileWriter(file, true);
+                writer.write(logMsg + "\n");
+                writer.close();
+            } catch (IOException e) {
+                throw new LoggerException("Unable to write to log", e);
+            }
         }
     }
 

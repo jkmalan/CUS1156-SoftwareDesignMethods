@@ -1,18 +1,20 @@
 package com.jkmalan.Project3;
 
 /**
+ *
+ *
  * @author jkmalan (aka John Malandrakis)
  */
 public abstract class SimpleLogger {
 
-    protected LoggerLevel level = LoggerLevel.ERROR;
+    protected LogLevel level = LogLevel.ERROR;
     protected Formatter formatter;
 
-    public void setLevel(LoggerLevel level) {
+    public void setLevel(LogLevel level) {
         this.level = level;
     }
 
-    public LoggerLevel getLevel() {
+    public LogLevel getLevel() {
         return level;
     }
 
@@ -20,7 +22,7 @@ public abstract class SimpleLogger {
         this.formatter = formatter;
     }
 
-    public abstract void log(LoggerLevel level, String component, String msg) throws LoggerException;
+    public abstract void log(LogLevel level, String component, String msg) throws LoggerException;
 
-    public abstract void log(LoggerLevel level, String component, Throwable ex) throws LoggerException;
+    public abstract void log(LogLevel level, String component, Throwable ex) throws LoggerException;
 }
